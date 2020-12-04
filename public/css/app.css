@@ -10903,3 +10903,11 @@ a.text-dark:focus {
   }
 }
 
+body {
+  background-color: #ffb6c1;
+}
+
+nav {
+  background-color: #c71585;
+}
+
