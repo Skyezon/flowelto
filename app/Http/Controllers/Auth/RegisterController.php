@@ -75,7 +75,6 @@ class RegisterController extends Controller
             'dob' => $data['dob'],
             'address' => $data['address'],
             'role' => 'member'
-
         ]);
     }
 }

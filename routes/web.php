@@ -15,9 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(route('home'));
+    return redirect(route('welcome'));
 });
 
 Auth::routes();
 
-Route::get('/home', 'CategoryController@index')->name('home');
+Route::get('home', 'CategoryController@index')->name('welcome');
+Route::prefix('category')->group(function (){
+    Route::get('{id}','CategoryController@getProductByCategory')->name('home');
+});
+Route::prefix('product')->group(function (){
+    Route::get('search','ProductController@search')->name('productSearch');
+    Route::delete('{id}','ProductController@softDelete')->name('productDelete');
+    Route::get('{id}','ProductController@get')->name('productGet');
+    Route::get('update/{id}','ProductController@showUpdatePage')->name('showUpdateProduct');
+    Route::patch('update{id}','ProductController@update')->name('productUpdate');
+});
