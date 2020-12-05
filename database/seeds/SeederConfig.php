@@ -3,6 +3,8 @@
 namespace Seeds;
 
 class SeederConfig {
+    public static $storagePath = 'storage\app\public';
+
     public static $dataCount = [
         'user' => 5,
         'category' => 3,
