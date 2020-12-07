@@ -15,7 +15,7 @@
                                     @method('DELETE')
                                     <button class="btn btn-danger" type="submit">Delete Category</button>
                                 </form>
-                                <a href="#" class="btn btn-info">Update Category</a>
+                                <a href="{{route('categoryEdit', $data->id)}}" class="btn btn-info">Update Category</a>
                             </div>
                         </div>
                     </div>
