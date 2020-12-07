@@ -25,6 +25,7 @@ Route::prefix('category')->group(function (){
     Route::get('/', 'CategoryController@manageCategory')->name('manageCategory');
     Route::delete('{id}', 'CategoryController@delete')->name('categoryDelete');
     Route::get('{id}','CategoryController@getProductByCategory')->name('home');
+    Route::patch('{id}','CategoryController@update')->name('categoryUpdate');
     Route::get('update/{id}', 'CategoryController@edit')->name('categoryEdit');
 });
 Route::prefix('product')->group(function (){

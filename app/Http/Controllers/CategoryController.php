@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -19,6 +20,28 @@ class CategoryController extends Controller
 
     public function edit($id) {
         return view('category.category_update', ['datas' => $this->getCategoryById($id)]);
+    }
+
+    public function update(Request $request, $id) {
+        $input = $request->validate([
+            'categoryName' => 'required|unique:categories,name|min:5',
+            'categoryImage' => 'file|mimes:png,jpg,jpeg'
+        ]);
+
+        $category = $this->getCategoryById($id);
+        $filePath = $category->image;
+
+        if($request->categoryImage != null) {
+            Storage::delete('\public'.str_replace('\storage', '', $category->image));
+            $filePath = Storage::putFile('\public\categories', $request->categoryImage);
+        }
+
+        $category->update([
+            'name' => $request->categoryName,
+            'image' => str_replace('\public', '\storage', $filePath)
+        ]);
+
+        return redirect(route('manageCategory'));
     }
 
     public function delete($id) {
