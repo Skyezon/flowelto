@@ -17,6 +17,12 @@ class CategoryController extends Controller
         return view('category.manage_category', compact('datas'));
     }
 
+    public function delete($id) {
+        $category = Category::find($id);
+        $category->products()->delete();
+        return back()->with('success', 'All products from '.$category->name.' category has been deleted');
+    }
+
     public function getProductByCategory($id){
         $category = Category::find($id);
         $datas = $category->products()->paginate(8);

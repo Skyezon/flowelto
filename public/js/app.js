@@ -37274,6 +37274,15 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+$(function () {
+  if ($('#notification').length > 0) {
+    setTimeout(function () {
+      $('.alert').alert('close');
+      console.log('Close Notification');
+    }, 6000, $('#notification'));
+  }
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -37339,8 +37348,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\code-project\Web-project\flowelto\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\code-project\Web-project\flowelto\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\Web\Project\FlowelTo\flowelto\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\Web\Project\FlowelTo\flowelto\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
