@@ -21,6 +21,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('home', 'CategoryController@index')->name('welcome');
+
+Route::middleware('auth')->group(function (){
+    Route::get('change-password','ChangePasswordController@show')->name('showChangePassword');
+    Route::post('change-password','ChangePasswordController@change')->name('changePassword');
+});
 Route::prefix('category')->group(function (){
     Route::get('/', 'CategoryController@manageCategory')->name('manageCategory');
     Route::middleware('manager')->group(function (){

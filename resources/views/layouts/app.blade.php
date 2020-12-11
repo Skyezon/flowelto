@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title',config('app.name'))</title>
+    <title>@yield('title','FlowelTo')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -80,7 +80,7 @@
                                            Transaction History
                                        </a>
                                     @endif
-                                       <a class="dropdown-item" href="#">
+                                       <a class="dropdown-item" href="{{route('showChangePassword')}}">
                                            Change password
                                        </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
