@@ -37282,6 +37282,16 @@ $(function () {
     }, 6000, $('#notification'));
   }
 });
+$("#image").change(function (e) {
+  var displayed = $("#displayed");
+  var reader = new FileReader();
+
+  reader.onload = function (el) {
+    displayed.attr('src', el.target.result);
+  };
+
+  reader.readAsDataURL(e.target.files[0]);
+});
 
 /***/ }),
 
@@ -37348,8 +37358,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\Web\Project\FlowelTo\flowelto\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\Web\Project\FlowelTo\flowelto\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\code-project\Web-project\flowelto\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\code-project\Web-project\flowelto\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

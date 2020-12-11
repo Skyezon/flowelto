@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\ProductRequest;
 use App\Product;
 use Illuminate\Http\Request;
@@ -24,16 +25,18 @@ class ProductController extends Controller
 
     public function get($id){
         $data = Product::find($id);
-        return view('product.product_view',compact('data'));
+        return view('product.view',compact('data'));
     }
 
     public function showUpdatePage($id){
         $data = Product::find($id);
-        return view('product.product_update',compact('data'));
+        $types = Category::all();
+        return view('product.update',compact('data','types'));
     }
 
     public function update(ProductRequest $request,$id){
         $data = Product::find($id);
+//        TODO: still error
         $path = "";
         if ($request->filled('image')){
             $this->deleteImage($data);
@@ -45,21 +48,27 @@ class ProductController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
-            'image' => $path
+            'image' => $path,
+            'category_id' => $request->type
         ]);
 
         return redirect()->route('home')->with('success','Flower data sucessfully updated');
     }
 
     public function store(ProductRequest $request){
-        //TODO : validate request image if empty return error
+        $request->validate([
+            'image' => 'required'
+        ]);
         $path = $request->file('image')->store('public/products');
         Product::create([
            'name' => $request->name,
            'price' => $request->price,
            'description' => $request->description,
+           'category_id' => $request->type,
            'image' => $path
         ]);
+
+        return redirect()->route('home');
     }
 
     public function softDelete($id){
@@ -73,5 +82,10 @@ class ProductController extends Controller
         $oldImage = $data->image;
         $oldImage =  str_replace('storage','public',$oldImage);
         Storage::delete($oldImage);
+    }
+
+    public function showStorePage(){
+        $types = Category::all();
+        return view('product.add',compact('types'));
     }
 }

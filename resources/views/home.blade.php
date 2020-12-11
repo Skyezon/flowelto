@@ -33,7 +33,7 @@
                         </a>
                         <span class="font-weight-bold" style="color: darkgoldenrod">Rp. {{$data->price}}</span>
                     </div>
-                    @if(Auth::user() && Auth::user()->role == 'admin')
+                    @if(Auth::user() && Auth::user()->role == 'manager')
                         <div class="d-flex justify-content-around mt-3">
                             <form method="post" enctype="multipart/form-data" action="{{route('productDelete',$data->id)}}">
                                 @method('delete')

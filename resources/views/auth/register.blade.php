@@ -86,11 +86,12 @@
                             <div class="col-md-6">
                                 <textarea name="address" id="address" cols="38" rows="2"></textarea>
                                 @error('address')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <div class="alert alert-danger">
+                                    {{$message}}
+                                </div>
                                 @enderror
                             </div>
+
                         </div>
 
 

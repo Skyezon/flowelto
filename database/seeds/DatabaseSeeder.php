@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->attachUserWithProduct();
     }
 
-    private function addManager($email = 'manager@mail.com', $password = '123qwe') {
+    private function addManager($email = 'manager@mail.com', $password = 'password') {
         factory(App\User::class)->create([
             'username' => 'Manager'.rand(1, 10),
             'email' => $email,
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
 
         App\User::where('role', '<>', 'manager')->each(function($user) use($product){
             $numOfCartItem = rand(1,6);
-            for ($i = 1; $i <= $numOfCartItem;) { 
+            for ($i = 1; $i <= $numOfCartItem;) {
                 $productId = rand(1, SeederConfig::$dataCount['product']);
 
                 if($user->products()->where([

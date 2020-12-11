@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function manageCategory() {
         $datas = $this->getAllCategory();
-        return view('category.manage_category', compact('datas'));
+        return view('category.manage', compact('datas'));
     }
 
     public function index(){
@@ -19,7 +19,7 @@ class CategoryController extends Controller
     }
 
     public function edit($id) {
-        return view('category.category_update', ['datas' => $this->getCategoryById($id)]);
+        return view('category.update', ['datas' => $this->getCategoryById($id)]);
     }
 
     public function update(Request $request, $id) {

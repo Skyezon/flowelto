@@ -38,6 +38,17 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown1" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Category
+                                </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown1">
+                                @foreach(\App\Category::all() as $type)
+                                    <a class="dropdown-item" href="{{route('home',$type->id)}}">{{$type->name}}</a>
+                                @endforeach
+                            </div>
+                            </li>
+
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -53,8 +64,25 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->username }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                   @if(Auth::user()->role == 'manager')
+                                    <a class="dropdown-item" href="{{route('showProductStore')}}">
+                                        Add Product
+                                    </a>
+                                   <a class="dropdown-item" href="{{route('manageCategory')}}">
+                                       Manage Categories
+                                   </a>
+                                    @else
+                                        <a class="dropdown-item" href="#">
+                                            My Cart
+                                        </a>
+                                       <a class="dropdown-item" href="#">
+                                           Transaction History
+                                       </a>
+                                    @endif
+                                       <a class="dropdown-item" href="#">
+                                           Change password
+                                       </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
