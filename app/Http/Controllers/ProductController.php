@@ -25,7 +25,7 @@ class ProductController extends Controller
 
     public function get($id){
         $data = Product::find($id);
-        return view('product.view',compact('data'));
+        return view('product.detail',compact('data'));
     }
 
     public function showUpdatePage($id){
