@@ -36,7 +36,6 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request,$id){
         $data = Product::find($id);
-//        TODO: still error
         $path = "";
         if ($request->filled('image')){
             $this->deleteImage($data);
@@ -44,6 +43,7 @@ class ProductController extends Controller
         }else{
             $path = $data->image;
         }
+        $path = str_replace("public","/storage",$path);
         $data->update([
             'name' => $request->name,
             'price' => $request->price,
@@ -52,14 +52,16 @@ class ProductController extends Controller
             'category_id' => $request->type
         ]);
 
-        return redirect()->route('home')->with('success','Flower data sucessfully updated');
+        return redirect()->route('welcome');
     }
 
     public function store(ProductRequest $request){
         $request->validate([
-            'image' => 'required'
+            'image' => 'required',
+            'name' => 'unique:products'
         ]);
         $path = $request->file('image')->store('public/products');
+        $path = str_replace("public","/storage",$path);
         Product::create([
            'name' => $request->name,
            'price' => $request->price,
@@ -68,14 +70,14 @@ class ProductController extends Controller
            'image' => $path
         ]);
 
-        return redirect()->route('home');
+        return redirect()->route('welcome');
     }
 
     public function softDelete($id){
         $data = Product::find($id);
         $data->users()->detach();
         $data->delete();
-        return redirect()->route('welcome')->with('success','flower successfully deleted');
+        return redirect()->route('welcome');
     }
 
     private function deleteImage($data){

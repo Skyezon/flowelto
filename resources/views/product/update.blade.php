@@ -11,10 +11,17 @@
             <form action="{{route('productUpdate',$data->id)}}" enctype="multipart/form-data" class="w-50" method="post" >
                 @csrf
                 @method('patch')
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach($errors->all() as $error)
+                            <div>{{$error}}</div>
+                        @endforeach
+                    </div>
+                @endif
                 <div class="mb-4">
                         <label for="type">Category</label>
                     <div>
-                        <select id="type" class="custom-select">
+                        <select id="type" name="type" class="custom-select">
                             @foreach($types as $type)
                                 <option value="{{$type->id}}">{{$type->name}}</option>
                             @endforeach
@@ -31,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Flower Description : </label>
-                    <textarea class="form-control" >{{$data->description}}</textarea>
+                    <textarea class="form-control" name="description" >{{$data->description}}</textarea>
                 </div>
                 <div class="form-group">
                     <div>

@@ -23,22 +23,23 @@ Auth::routes();
 Route::get('home', 'CategoryController@index')->name('welcome');
 Route::prefix('category')->group(function (){
     Route::get('/', 'CategoryController@manageCategory')->name('manageCategory');
-    Route::get('{id}','CategoryController@getProductByCategory')->name('home');
     Route::middleware('manager')->group(function (){
-        Route::patch('{id}','CategoryController@update')->name('categoryUpdate');
         Route::get('update/{id}', 'CategoryController@edit')->name('categoryEdit');
+        Route::patch('{id}','CategoryController@update')->name('categoryUpdate');
         Route::delete('{id}', 'CategoryController@delete')->name('categoryDelete');
     });
+    Route::get('{id}','CategoryController@getProductByCategory')->name('home');
 });
 
 Route::prefix('product')->group(function (){
     Route::get('search','ProductController@search')->name('productSearch');
-    Route::get('{id}','ProductController@get')->name('productGet');
     Route::middleware('manager')->group(function (){
         Route::get('update/{id}','ProductController@showUpdatePage')->name('showUpdateProduct');
         Route::patch('update{id}','ProductController@update')->name('productUpdate');
-        Route::delete('{id}','ProductController@softDelete')->name('productDelete');
         Route::get('add','ProductController@showStorePage')->name('showProductStore');
         Route::post('add','ProductController@store')->name('productStore');
+        Route::delete('{id}','ProductController@softDelete')->name('productDelete');
     });
+    Route::get('{id}','ProductController@get')->name('productGet');
+
 });

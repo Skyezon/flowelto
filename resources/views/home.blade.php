@@ -45,9 +45,10 @@
                     @endif
                 </div>
             @endforeach
-            <div class="my-3">
-                {{$datas->links()}}
-            </div>
+
+        </div>
+        <div class="my-3 d-flex justify-content-center align-items-center" style="height: fit-content">
+            {{$datas->links()}}
         </div>
     </div>
 
