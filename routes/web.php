@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function (){
     Route::get('change-password','ChangePasswordController@show')->name('showChangePassword');
     Route::post('change-password','ChangePasswordController@change')->name('changePassword');
 });
+
 Route::prefix('category')->group(function (){
     Route::get('/', 'CategoryController@manageCategory')->name('manageCategory');
     Route::middleware('manager')->group(function (){
@@ -48,7 +49,14 @@ Route::prefix('product')->group(function (){
     Route::get('{id}','ProductController@get')->name('productGet');
 });
 
-Route::prefix('cart')->group(function() {
-    Route::get('', 'TransactionController@cart')->name('userCart');
-    Route::patch('/update/{id}', 'TransactionController@changeCartItemQty')->name('updateCartContent');
+Route::middleware('user')->group(function() {
+    Route::prefix('cart')->group(function() {
+        Route::get('', 'TransactionController@cart')->name('userCart');
+        Route::patch('update/{id}', 'TransactionController@changeCartItemQty')->name('updateCartContent');
+    });
+
+    Route::prefix('transaction')->group(function() {
+        Route::get('history', 'TransactionController@transactionHistory')->name('history');
+        Route::post('checkout', 'TransactionController@checkout')->name('checkout');
+    });
 });
