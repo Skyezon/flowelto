@@ -48,3 +48,5 @@ Route::prefix('product')->group(function (){
     Route::get('{id}','ProductController@get')->name('productGet');
 
 });
+
+Route::get('/cart', 'TransactionController@cart')->name('userCart');
