@@ -46,7 +46,9 @@ Route::prefix('product')->group(function (){
         Route::delete('{id}','ProductController@softDelete')->name('productDelete');
     });
     Route::get('{id}','ProductController@get')->name('productGet');
-
 });
 
-Route::get('/cart', 'TransactionController@cart')->name('userCart');
+Route::prefix('cart')->group(function() {
+    Route::get('', 'TransactionController@cart')->name('userCart');
+    Route::patch('/update/{id}', 'TransactionController@changeCartItemQty')->name('updateCartContent');
+});

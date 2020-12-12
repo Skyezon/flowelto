@@ -8,7 +8,7 @@
                 <img class="w-25" src="{{$data->image}}">
                 <span>{{$data->name}}</span>
                 <span>Rp {{$data->price * $data->pivot->quantity}}</span>
-                <form action="#" method="POST" class="form-inline">
+                <form action="{{route('updateCartContent', $data->id)}}" method="POST" class="form-inline">
                     @method('PATCH')
                     @csrf
                     <div class="form-group">
