@@ -24,6 +24,7 @@
   <component name="ChangeListManager">
     <list default="true" id="20fc4160-78ca-4616-a70c-652e85f66280" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +182,7 @@
       <workItem from="1607653280155" duration="5185000" />
       <workItem from="1607677220610" duration="22292000" />
       <workItem from="1607749274119" duration="33000" />
-      <workItem from="1607755211654" duration="3083000" />
+      <workItem from="1607755211654" duration="4261000" />
     </task>
     <servers />
   </component>
@@ -221,9 +222,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1607654551742" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1607781830630">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1607782150309">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1607781830630" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1607782150309" />
   </component>
 </project>
