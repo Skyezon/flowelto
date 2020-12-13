@@ -38,6 +38,7 @@ class CategoryController extends Controller
         $category = $this->getCategoryById($id);
         $filePath = $category->image;
 
+        //menghapus image lama jika manager mengupload image baru
         if($request->categoryImage != null) {
             Storage::delete('\public'.str_replace('\storage', '', $category->image));
             $filePath = Storage::putFile('\public\categories', $request->categoryImage);

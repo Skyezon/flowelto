@@ -25,7 +25,8 @@ class ProductController extends Controller
 
     public function get($id){
         $data = Product::find($id); // mencari produk yang sesuai
-        return view('product.detail',compact('data'));
+        $inCart = Auth::check() && count(Auth::user()->products()->where('product_id', $id)->get()) > 0 ? true : false; //mencari apakah produk sudah ada didalam cart
+        return view('product.detail',compact('data', 'inCart'));
     }
 
     public function showUpdatePage($id){

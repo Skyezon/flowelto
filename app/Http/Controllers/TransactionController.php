@@ -30,6 +30,7 @@ class TransactionController extends Controller
                 'quantity' => 'required | numeric | min:1'
             ])->validate();
 
+            // memasukkan record baru ke intermediate table (carts) antara user dan product
             Auth::user()->products()->attach($id, ['quantity' => $request->quantity]);
             return redirect(route('userCart'));
         }
@@ -47,6 +48,7 @@ class TransactionController extends Controller
             'date' => date('Y-m-d')
         ]);
 
+        // setelah transactoin baru dibuat, transaction detail dibuat sesuai dengan product yang ada didalam cart
         foreach ($cartContent as $item) {
             TransactionDetail::create([
                 'transaction_id' => $transaction->id,
@@ -55,6 +57,7 @@ class TransactionController extends Controller
             ]);
         }
 
+        // menghapus semua product yang ada di cart customer
         Auth::user()->products()->detach();
         return back();
     }
@@ -66,16 +69,20 @@ class TransactionController extends Controller
      * @param $id                   selected product ID in user cart
      */
     public function changeCartItemQty(Request $request, $id) {
+        //membuat objek validator untuk melakukan validasi input
         $validator = Validator::make($request->all(), [
             'quantity' => 'required | numeric | min:0'
         ]);
 
         if($validator->fails()) {
+            //jika validasi gagal, maka pesan error dikirim kembali ke url sebelumnya dan
+            //id produk yang ingin diupdate dikirim kembali ke view menggunakan flash session
             return back()->withErrors($validator)->with('productId', $id);
         } else {
             if($request->quantity > 0) {
                 Auth::user()->products()->updateExistingPivot($id, ['quantity' => $request->quantity]);
             } else {
+                //jika quantity yang diinput adalah 0, maka produk akan dihapus dari cart customer
                 Auth::user()->products()->detach($id);
             }
             return back();
@@ -86,6 +93,7 @@ class TransactionController extends Controller
      * get currently authenticated user transaction history and return them to transaction history view
      */
     public function transactionHistory() {
+        // mengambil transaksi user yang di urutkan berdasarkan tanggal yang paling dekat ke tanggal yang paling jauh
         $datas = Auth::user()->transactions()->orderBy('date', 'desc')->get();
         return view('transaction.history', compact('datas'));
     }
@@ -97,9 +105,10 @@ class TransactionController extends Controller
      */
     public function transactionDetail($id) {
         $transaction = Transaction::find($id);
-
         $datas = $transaction->transactionDetails()->get();
         $total = 0;
+        
+        //menghitung total dari semua produk yang dibeli
         foreach($datas as $data) {
             $total += $data->quantity * $data->product()->withTrashed()->first()->price;
         }
