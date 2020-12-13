@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('home', 'CategoryController@index')->name('welcome');
+Route::post('cart/{id}', 'TransactionController@addToCart')->name('addToCart');
 
 Route::middleware('auth')->group(function (){
     Route::get('change-password','ChangePasswordController@show')->name('showChangePassword');

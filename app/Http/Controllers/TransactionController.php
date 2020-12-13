@@ -18,6 +18,21 @@ class TransactionController extends Controller
     }
 
     /**
+     * Add selected product to the cart
+     * 
+     * @param Request $request      request sended from the view
+     * @param $id                   Selected product ID
+     */
+    public function addToCart(Request $request, $id) {
+        if(Auth::check() && Auth::user()->role == 'user') {
+            Auth::user()->products()->attach($id, ['quantity' => $request->quantity]);
+            return redirect(route('userCart'));
+        }
+
+        return redirect(route('login'));
+    }
+
+    /**
      * Create new transaction for the user and remove all cart content
      */
     public function checkout() {
@@ -59,15 +74,19 @@ class TransactionController extends Controller
     }
 
     /**
-     * View an transaction details
+     * View an transaction details with transaction total price
      * 
      * @param $id       Selected Transaction ID
      */
     public function transactionDetail($id) {
         $transaction = Transaction::find($id);
-        $datas = $transaction->transactionDetails()->get();
-        // dd($datas->first()->product); //ERROR cannot get softdeleted object, find how to access soft deleted object
 
-        return view('transaction.transaction-detail', compact('datas'));
+        $datas = $transaction->transactionDetails()->get();
+        $total = 0;
+        foreach($datas as $data) {
+            $total += $data->quantity * $data->product()->withTrashed()->first()->price;
+        }
+
+        return view('transaction.transaction-detail', compact('datas', 'total'));
     }
 }

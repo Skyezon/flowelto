@@ -22,8 +22,8 @@
                         <td>{{$data->quantity}}</td>
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
+        <div class="text-right font-weight-bold">Total Price Rp {{$total}}</div>
     </div>
 @endsection

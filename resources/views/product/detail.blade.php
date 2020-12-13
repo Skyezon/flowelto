@@ -14,7 +14,9 @@
                     {{$data->description}}
                 </div>
                 @if(!Auth::user() || Auth::user()->role != "manager")
-                    <form action="" enctype="multipart/form-data" method="post" class="w-50 mt-5">
+                    <form action="{{route('addToCart', $data->id)}}" enctype="multipart/form-data" method="post" class="w-50 mt-5">
+                        @csrf
+
                         <div class="d-flex justify-content-between align-items-center form-group" >
                             <label for="quantity">Quantity : </label>
                             <div class="w-50">
