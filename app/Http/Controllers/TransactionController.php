@@ -57,4 +57,17 @@ class TransactionController extends Controller
         $datas = Auth::user()->transactions()->orderBy('date', 'desc')->get();
         return view('transaction.history', compact('datas'));
     }
+
+    /**
+     * View an transaction details
+     * 
+     * @param $id       Selected Transaction ID
+     */
+    public function transactionDetail($id) {
+        $transaction = Transaction::find($id);
+        $datas = $transaction->transactionDetails()->get();
+        // dd($datas->first()->product); //ERROR cannot get softdeleted object, find how to access soft deleted object
+
+        return view('transaction.transaction-detail', compact('datas'));
+    }
 }

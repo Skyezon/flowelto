@@ -57,6 +57,7 @@ Route::middleware('user')->group(function() {
 
     Route::prefix('transaction')->group(function() {
         Route::get('history', 'TransactionController@transactionHistory')->name('history');
+        Route::get('history/{id}', 'TransactionController@transactionDetail')->name('transactionDetail');   
         Route::post('checkout', 'TransactionController@checkout')->name('checkout');
     });
 });
