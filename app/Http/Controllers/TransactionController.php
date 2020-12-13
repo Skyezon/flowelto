@@ -26,7 +26,6 @@ class TransactionController extends Controller
      */
     public function addToCart(Request $request, $id) {
         if(Auth::check() && Auth::user()->role == 'user') {
-            // dd($request);
             Validator::make($request->all(), [
                 'quantity' => 'required | numeric | min:1'
             ])->validate();
