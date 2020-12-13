@@ -9,12 +9,20 @@
                     <img class="w-25" src="{{$data->image}}">
                     <span>{{$data->name}}</span>
                     <span>Rp {{$data->price * $data->pivot->quantity}}</span>
-                    <form action="{{route('updateCartContent', $data->id)}}" method="POST" class="form-inline">
+                    <form action="{{route('updateCartContent', $data->id)}}" method="POST">
                         @method('PATCH')
                         @csrf
+                        @if($errors->any() && $data->id == session('productId'))
+                            <div class="alert alert-danger">
+                                @foreach($errors->all() as $error)
+                                    <div>{{$error}}</div>
+                                @endforeach
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="number" name="quantity" id="quantity" class="form-control" value="{{$data->pivot->quantity}}">
+                            <input type="number" name="quantity" id="quantity" class="form-control" 
+                            value="{{$data->pivot->quantity}}">
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
@@ -29,4 +37,13 @@
             <h1 class="text-center">Cart is empty</h1>
         @endif
     </div>
+
+    @error('quantity')
+        <div class="container position-fixed fixed-bottom" id="notification">
+            <div role="alert" class="alert alert-danger alert-dismissible fade @if(session('success')) show @endif">
+                <strong>{{$message}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+            </div>
+        </div>
+    @enderror
 @endsection

@@ -41,7 +41,7 @@ class CategoryController extends Controller
             'image' => str_replace('\public', '\storage', $filePath)
         ]);
 
-        return redirect(route('manageCategory'));
+        return back();
     }
 
     public function delete($id) {

@@ -17,6 +17,14 @@
                     <form action="{{route('addToCart', $data->id)}}" enctype="multipart/form-data" method="post" class="w-50 mt-5">
                         @csrf
 
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach($errors->all() as $error)
+                                    <div>{{$error}}</div>
+                                @endforeach
+                            </div>
+                        @endif
+
                         <div class="d-flex justify-content-between align-items-center form-group" >
                             <label for="quantity">Quantity : </label>
                             <div class="w-50">
