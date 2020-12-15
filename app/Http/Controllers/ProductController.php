@@ -18,7 +18,7 @@ class ProductController extends Controller
         if ($searchBy == 'price'){
             $datas = Product::where($searchBy,$content)->paginate(8); // mencari harga price yang sesuai dengan inputan user
         }else{
-            $datas = Product::where($searchBy,'LIKE','%'.$content.'%')->paginate(8); // mencari produk dengan nama yang mengandung kata" oleh apa yang sudah diinput oleh user
+            $datas = Product::where('name','LIKE','%'.$content.'%')->paginate(8); // mencari produk dengan nama yang mengandung kata" oleh apa yang sudah diinput oleh user
         }// melakukan search yang sesuai apabila price atau name yang dipilih
         return view('home',compact('datas'));
     }
