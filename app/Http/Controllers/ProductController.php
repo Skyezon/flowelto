@@ -38,7 +38,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request,$id){
         $data = Product::find($id); // mencari product yang sesuai dengan id tersebut
         $path = $data->image;
-        if ($request->filled('image')){
+        if ($request->image != null){
             $this->deleteImage($data); // menghapus image sebelumnya
             $path = $request->file('image')->store('public/products'); //mengambil foto dari input dan menyimpan pada folder storage/app/public/products
         }// mengisi path baru yang sesuai apabila image diisi
@@ -52,7 +52,7 @@ class ProductController extends Controller
             'category_id' => $request->type
         ]); // update produk sesuai dengan inputan user
 
-        return redirect()->route('welcome');
+        return back();
     }
 
     public function store(ProductRequest $request){
@@ -78,7 +78,7 @@ class ProductController extends Controller
         $data = Product::find($id); //pertama akan dicari product sesuai dengan id yang diterima dari url
         $data->users()->detach(); // akan melepaskan semua koneksi produk ke user dari table cart
         $data->delete(); // akan menandai bahwa product sudah terdelete
-        return redirect()->route('welcome');
+        return back();
     }
 
     private function deleteImage($data){
