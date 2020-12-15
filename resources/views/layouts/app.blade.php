@@ -73,10 +73,10 @@
                                        Manage Categories
                                    </a>
                                     @else
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{route('userCart')}}">
                                             My Cart
                                         </a>
-                                       <a class="dropdown-item" href="#">
+                                       <a class="dropdown-item" href="{{route('history')}}">
                                            Transaction History
                                        </a>
                                     @endif

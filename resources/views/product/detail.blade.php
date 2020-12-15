@@ -14,17 +14,33 @@
                     {{$data->description}}
                 </div>
                 @if(!Auth::user() || Auth::user()->role != "manager")
-                    <form action="" enctype="multipart/form-data" method="post" class="w-50 mt-5">
-                        <div class="d-flex justify-content-between align-items-center form-group" >
-                            <label for="quantity">Quantity : </label>
-                            <div class="w-50">
-                                <input required class="form-control w-100" type="number" name="quantity" id="quantity"/>
+                    @if ($inCart)
+                    <div class="alert alert-danger">
+                        <div>This product has been added to the cart</div>
+                    </div>
+                    @else
+                        <form action="{{route('addToCart', $data->id)}}" enctype="multipart/form-data" method="post" class="w-50 mt-5">
+                            @csrf
+
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach($errors->all() as $error)
+                                        <div>{{$error}}</div>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            <div class="d-flex justify-content-between align-items-center form-group" >
+                                <label for="quantity">Quantity : </label>
+                                <div class="w-50">
+                                    <input required class="form-control w-100" type="number" name="quantity" id="quantity"/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary w-50">Add to cart</button>
-                        </div>
-                    </form>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary w-50">Add to cart</button>
+                            </div>
+                        </form>
+                    @endif
                 @endif
             </div>
         </div>

@@ -18,14 +18,15 @@ class ProductController extends Controller
         if ($searchBy == 'price'){
             $datas = Product::where($searchBy,$content)->paginate(8); // mencari harga price yang sesuai dengan inputan user
         }else{
-            $datas = Product::where($searchBy,'LIKE','%'.$content.'%')->paginate(8); // mencari produk dengan nama yang mengandung kata" oleh apa yang sudah diinput oleh user
+            $datas = Product::where('name','LIKE','%'.$content.'%')->paginate(8); // mencari produk dengan nama yang mengandung kata" oleh apa yang sudah diinput oleh user
         }// melakukan search yang sesuai apabila price atau name yang dipilih
         return view('home',compact('datas'));
     }
 
     public function get($id){
         $data = Product::find($id); // mencari produk yang sesuai
-        return view('product.detail',compact('data'));
+        $inCart = Auth::check() && count(Auth::user()->products()->where('product_id', $id)->get()) > 0 ? true : false; //mencari apakah produk sudah ada didalam cart
+        return view('product.detail',compact('data', 'inCart'));
     }
 
     public function showUpdatePage($id){
@@ -37,7 +38,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request,$id){
         $data = Product::find($id); // mencari product yang sesuai dengan id tersebut
         $path = $data->image;
-        if ($request->filled('image')){
+        if ($request->image != null){
             $this->deleteImage($data); // menghapus image sebelumnya
             $path = $request->file('image')->store('public/products'); //mengambil foto dari input dan menyimpan pada folder storage/app/public/products
         }// mengisi path baru yang sesuai apabila image diisi
@@ -51,7 +52,7 @@ class ProductController extends Controller
             'category_id' => $request->type
         ]); // update produk sesuai dengan inputan user
 
-        return redirect()->route('welcome');
+        return back();
     }
 
     public function store(ProductRequest $request){
@@ -77,7 +78,7 @@ class ProductController extends Controller
         $data = Product::find($id); //pertama akan dicari product sesuai dengan id yang diterima dari url
         $data->users()->detach(); // akan melepaskan semua koneksi produk ke user dari table cart
         $data->delete(); // akan menandai bahwa product sudah terdelete
-        return redirect()->route('welcome');
+        return back();
     }
 
     private function deleteImage($data){

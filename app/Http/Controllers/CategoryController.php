@@ -22,8 +22,15 @@ class CategoryController extends Controller
         return view('category.update', ['datas' => $this->getCategoryById($id)]);
     }
 
+    /**
+     * Update selected product category and delete and replace the category old image
+     * if new photo is uploaded
+     * 
+     * @param Request $request      request sended from the view containing the user input
+     * @param $id                   Selected category ID
+     */
     public function update(Request $request, $id) {
-        $input = $request->validate([
+        $request->validate([
             'categoryName' => 'required|unique:categories,name|min:5',
             'categoryImage' => 'file|mimes:png,jpg,jpeg'
         ]);
@@ -31,6 +38,7 @@ class CategoryController extends Controller
         $category = $this->getCategoryById($id);
         $filePath = $category->image;
 
+        //menghapus image lama jika manager mengupload image baru
         if($request->categoryImage != null) {
             Storage::delete('\public'.str_replace('\storage', '', $category->image));
             $filePath = Storage::putFile('\public\categories', $request->categoryImage);
@@ -41,9 +49,14 @@ class CategoryController extends Controller
             'image' => str_replace('\public', '\storage', $filePath)
         ]);
 
-        return redirect(route('manageCategory'));
+        return back();
     }
 
+    /**
+     * Delete all product related to the selected category
+     * 
+     * @param $id   Selected category ID
+     */
     public function delete($id) {
         $category = $this->getCategoryById($id);
         $category->products()->delete();

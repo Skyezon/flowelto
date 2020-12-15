@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class IsManager
+class IsUser
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,9 @@ class IsManager
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user() && Auth::user()->role == 'manager'){
+        if(Auth::check() && Auth::user()->role == 'user') {
             return $next($request);
-        }else{
+        } else {
             return redirect()->route('welcome');
         }
     }
