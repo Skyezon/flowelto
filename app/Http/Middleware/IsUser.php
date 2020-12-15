@@ -19,7 +19,7 @@ class IsUser
         if(Auth::check() && Auth::user()->role == 'user') {
             return $next($request);
         } else {
-            return redirect()->route('home');
+            return redirect()->route('welcome');
         }
     }
 }

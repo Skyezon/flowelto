@@ -19,7 +19,7 @@ class IsManager
         if(Auth::user() && Auth::user()->role == 'manager'){
             return $next($request);
         }else{
-            return redirect()->route('home');
+            return redirect()->route('welcome');
         }
     }
 }
