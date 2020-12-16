@@ -13664,7 +13664,7 @@ function defaultPrefilter( elem, props, opts ) {
 		orig = {},
 		style = elem.style,
 		hidden = elem.nodeType && isHiddenWithinTree( elem ),
-		dataShow = dataPriv.get( elem, "fxshow" );
+		kumpulanhow = dataPriv.get( elem, "fxshow" );
 
 	// Queue-skipping animations hijack the fx hooks
 	if ( !opts.queue ) {
@@ -13702,7 +13702,7 @@ function defaultPrefilter( elem, props, opts ) {
 
 				// Pretend to be hidden if this is a "show" and
 				// there is still data from a stopped show/hide
-				if ( value === "show" && dataShow && dataShow[ prop ] !== undefined ) {
+				if ( value === "show" && kumpulanhow && kumpulanhow[ prop ] !== undefined ) {
 					hidden = true;
 
 				// Ignore all other no-op show/hide data
@@ -13710,7 +13710,7 @@ function defaultPrefilter( elem, props, opts ) {
 					continue;
 				}
 			}
-			orig[ prop ] = dataShow && dataShow[ prop ] || jQuery.style( elem, prop );
+			orig[ prop ] = kumpulanhow && kumpulanhow[ prop ] || jQuery.style( elem, prop );
 		}
 	}
 
@@ -13730,7 +13730,7 @@ function defaultPrefilter( elem, props, opts ) {
 		opts.overflow = [ style.overflow, style.overflowX, style.overflowY ];
 
 		// Identify a display type, preferring old show/hide data over the CSS cascade
-		restoreDisplay = dataShow && dataShow.display;
+		restoreDisplay = kumpulanhow && kumpulanhow.display;
 		if ( restoreDisplay == null ) {
 			restoreDisplay = dataPriv.get( elem, "display" );
 		}
@@ -13782,17 +13782,17 @@ function defaultPrefilter( elem, props, opts ) {
 
 		// General show/hide setup for this element animation
 		if ( !propTween ) {
-			if ( dataShow ) {
-				if ( "hidden" in dataShow ) {
-					hidden = dataShow.hidden;
+			if ( kumpulanhow ) {
+				if ( "hidden" in kumpulanhow ) {
+					hidden = kumpulanhow.hidden;
 				}
 			} else {
-				dataShow = dataPriv.access( elem, "fxshow", { display: restoreDisplay } );
+				kumpulanhow = dataPriv.access( elem, "fxshow", { display: restoreDisplay } );
 			}
 
 			// Store hidden/visible for toggle so `.stop().toggle()` "reverses"
 			if ( toggle ) {
-				dataShow.hidden = !hidden;
+				kumpulanhow.hidden = !hidden;
 			}
 
 			// Show elements before animating them
@@ -13818,9 +13818,9 @@ function defaultPrefilter( elem, props, opts ) {
 		}
 
 		// Per-property setup
-		propTween = createTween( hidden ? dataShow[ prop ] : 0, prop, anim );
-		if ( !( prop in dataShow ) ) {
-			dataShow[ prop ] = propTween.start;
+		propTween = createTween( hidden ? kumpulanhow[ prop ] : 0, prop, anim );
+		if ( !( prop in kumpulanhow ) ) {
+			kumpulanhow[ prop ] = propTween.start;
 			if ( hidden ) {
 				propTween.end = propTween.start;
 				propTween.start = 0;

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (count($datas) != 0)
+    @if (count($kumpulan) != 0)
         <h1 class="text-center">Your Transaction History</h1>
         <div class="container">
-            @foreach ($datas as $data)
-                <a href="{{route('transactionDetail', $data->id)}}" class="d-block p-3 text-center mb text-dark" style="background-color: rgb(228, 191, 156);">
-                    Transaction at {{$data->date}}
+            @foreach ($kumpulan as $satuan)
+                <a href="{{route('transactionDetail', $satuan->id)}}" class="d-block p-3 text-center mb text-dark" style="background-color: rgb(228, 191, 156);">
+                    Transaction at {{$satuan->date}}
                 </a>
             @endforeach
         </div>

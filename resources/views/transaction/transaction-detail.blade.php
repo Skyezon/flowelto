@@ -12,14 +12,14 @@
                 </tr>
             </thead>
             <tbody style="background-color: rgb(228, 191, 156);">
-                @foreach ($datas as $data)
+                @foreach ($kumpulan as $satuan)
                     <tr>
                         <td>
-                            <img src="{{$data->product()->withTrashed()->first()->image}}" class="w-25">
+                            <img src="{{$satuan->product()->withTrashed()->first()->image}}" class="w-25">
                         </td>
-                        <td>{{$data->product()->withTrashed()->first()->name}}</td>
-                        <td>{{$data->product()->withTrashed()->first()->price * $data->quantity}}</td>
-                        <td>{{$data->quantity}}</td>
+                        <td>{{$satuan->product()->withTrashed()->first()->name}}</td>
+                        <td>{{$satuan->product()->withTrashed()->first()->price * $satuan->quantity}}</td>
+                        <td>{{$satuan->quantity}}</td>
                     </tr>
                 @endforeach
             </tbody>

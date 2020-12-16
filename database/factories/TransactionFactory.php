@@ -8,7 +8,7 @@ use Seeds\SeederConfig;
 
 $factory->define(Transaction::class, function (Faker $faker) {
     return [
-        'user_id' => rand(2, SeederConfig::$dataCount['user'] + 1),
+        'user_id' => rand(2, SeederConfig::$satuanCount['user'] + 1),
         'date' => $faker->date()
     ];
 });

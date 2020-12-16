@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,37 +28,29 @@ Route::middleware('auth')->group(function (){
     Route::post('change-password','ChangePasswordController@change')->name('changePassword');
 });
 
-Route::prefix('category')->group(function (){
-    Route::get('/', 'CategoryController@manageCategory')->name('manageCategory');
-    Route::middleware('manager')->group(function (){
-        Route::get('update/{id}', 'CategoryController@edit')->name('categoryEdit');
-        Route::patch('{id}','CategoryController@update')->name('categoryUpdate');
-        Route::delete('{id}', 'CategoryController@delete')->name('categoryDelete');
-    });
-    Route::get('{id}','CategoryController@getProductByCategory')->name('home');
+Route::get('category/', 'CategoryController@manageCategory')->name('manageCategory');
+Route::middleware('manager')->group(function () {
+    Route::get('category/update/{id}', 'CategoryController@edit')->name('categoryEdit');
+    Route::patch('category/{id}', 'CategoryController@update')->name('categoryUpdate');
+    Route::delete('category/{id}', 'CategoryController@delete')->name('categoryDelete');
 });
+Route::get('category/{id}','CategoryController@getProductByCategory')->name('home');
 
-Route::prefix('product')->group(function (){
-    Route::get('search','ProductController@search')->name('productSearch');
-    Route::middleware('manager')->group(function (){
-        Route::get('update/{id}','ProductController@showUpdatePage')->name('showUpdateProduct');
-        Route::patch('update{id}','ProductController@update')->name('productUpdate');
-        Route::get('add','ProductController@showStorePage')->name('showProductStore');
-        Route::post('add','ProductController@store')->name('productStore');
-        Route::delete('{id}','ProductController@softDelete')->name('productDelete');
-    });
-    Route::get('{id}','ProductController@get')->name('productGet');
+Route::get('product/search','ProductController@search')->name('productSearch');
+Route::middleware('manager')->group(function (){
+    Route::get('product/update/{id}','ProductController@showUpdatePage')->name('showUpdateProduct');
+    Route::patch('product/update{id}','ProductController@update')->name('productUpdate');
+    Route::get('product/add','ProductController@showStorePage')->name('showProductStore');
+    Route::post('product/add','ProductController@store')->name('productStore');
+    Route::delete('product/{id}','ProductController@softDelete')->name('productDelete');
 });
+Route::get('product/{id}','ProductController@get')->name('productGet');
 
 Route::middleware('user')->group(function() {
-    Route::prefix('cart')->group(function() {
-        Route::get('', 'TransactionController@cart')->name('userCart');
-        Route::patch('update/{id}', 'TransactionController@changeCartItemQty')->name('updateCartContent');
-    });
+        Route::get('cart', 'TransactionController@cart')->name('userCart');
+        Route::patch('cart/update/{id}', 'TransactionController@changeCartItemQty')->name('updateCartContent');
 
-    Route::prefix('transaction')->group(function() {
-        Route::get('history', 'TransactionController@transactionHistory')->name('history');
-        Route::get('history/{id}', 'TransactionController@transactionDetail')->name('transactionDetail');   
-        Route::post('checkout', 'TransactionController@checkout')->name('checkout');
-    });
+        Route::get('transaction/history', 'TransactionController@transactionHistory')->name('history');
+        Route::get('transaction/history/{id}', 'TransactionController@transactionDetail')->name('transactionDetail');
+        Route::post('transaction/checkout', 'TransactionController@checkout')->name('checkout');
 });

@@ -9,23 +9,23 @@ use Illuminate\Support\Facades\Storage;
 class CategoryController extends Controller
 {
     public function manageCategory() {
-        $datas = $this->getAllCategory();
-        return view('category.manage', compact('datas'));
+        $kumpulan = $this->getAllCategory();
+        return view('category.manage', compact('kumpulan'));
     }
 
     public function index(){
-        $datas = $this->getAllCategory();
-        return view('welcome',compact('datas'));
+        $kumpulan = $this->getAllCategory();
+        return view('welcome',compact('kumpulan'));
     }
 
     public function edit($id) {
-        return view('category.update', ['datas' => $this->getCategoryById($id)]);
+        return view('category.update', ['kumpulan' => $this->getCategoryById($id)]);
     }
 
     /**
      * Update selected product category and delete and replace the category old image
      * if new photo is uploaded
-     * 
+     *
      * @param Request $request      request sended from the view containing the user input
      * @param $id                   Selected category ID
      */
@@ -54,7 +54,7 @@ class CategoryController extends Controller
 
     /**
      * Delete all product related to the selected category
-     * 
+     *
      * @param $id   Selected category ID
      */
     public function delete($id) {
@@ -65,8 +65,8 @@ class CategoryController extends Controller
 
     public function getProductByCategory($id){
         $category = $this->getCategoryById($id);
-        $datas = $category->products()->paginate(8);
-        return view('home',compact('datas'));
+        $kumpulan = $category->products()->paginate(8);
+        return view('home',compact('kumpulan'));
     }
 
     private function getAllCategory() {

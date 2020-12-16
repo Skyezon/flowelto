@@ -14,11 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->addManager();
 
-        factory(App\User::class, SeederConfig::$dataCount['user'])->create();
-        factory(App\Category::class, SeederConfig::$dataCount['category'])->create();
-        factory(App\Product::class, SeederConfig::$dataCount['product'])->create();
-        factory(App\Transaction::class, SeederConfig::$dataCount['transaction'])->create();
-        factory(App\TransactionDetail::class, SeederConfig::$dataCount['transaction_detail'])->create();
+        factory(App\User::class, SeederConfig::$satuanCount['user'])->create();
+        factory(App\Category::class, SeederConfig::$satuanCount['category'])->create();
+        factory(App\Product::class, SeederConfig::$satuanCount['product'])->create();
+        factory(App\Transaction::class, SeederConfig::$satuanCount['transaction'])->create();
+        factory(App\TransactionDetail::class, SeederConfig::$satuanCount['transaction_detail'])->create();
 
         $this->attachUserWithProduct();
     }
@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
         App\User::where('role', '<>', 'manager')->each(function($user) use($product){
             $numOfCartItem = rand(1,6);
             for ($i = 1; $i <= $numOfCartItem;) {
-                $productId = rand(1, SeederConfig::$dataCount['product']);
+                $productId = rand(1, SeederConfig::$satuanCount['product']);
 
                 //jika product yang sama belum ada di dalam cart user, maka product tersebut akan dimasukkan ke database
                 if($user->products()->where([

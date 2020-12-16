@@ -14,13 +14,13 @@ class TransactionController extends Controller
      * get currently authenticated user carts content and return them to the cart view
      */
     public function cart() {
-        $datas = Auth::user()->products;
-        return view('transaction.cart', compact('datas'));
+        $kumpulan = Auth::user()->products;
+        return view('transaction.cart', compact('kumpulan'));
     }
 
     /**
      * Add selected product to the cart
-     * 
+     *
      * @param Request $request      request sended from the view
      * @param $id                   Selected product ID
      */
@@ -64,7 +64,7 @@ class TransactionController extends Controller
 
     /**
      * Take user input from view and update target cart item quantity
-     * 
+     *
      * @param Request $request      request sended from the view
      * @param $id                   selected product ID in user cart
      */
@@ -94,25 +94,25 @@ class TransactionController extends Controller
      */
     public function transactionHistory() {
         // mengambil transaksi user yang di urutkan berdasarkan tanggal yang paling dekat ke tanggal yang paling jauh
-        $datas = Auth::user()->transactions()->orderBy('date', 'desc')->get();
-        return view('transaction.history', compact('datas'));
+        $kumpulan = Auth::user()->transactions()->orderBy('date', 'desc')->get();
+        return view('transaction.history', compact('kumpulan'));
     }
 
     /**
      * View an transaction details with transaction total price
-     * 
+     *
      * @param $id       Selected Transaction ID
      */
     public function transactionDetail($id) {
         $transaction = Transaction::find($id);
-        $datas = $transaction->transactionDetails()->get();
+        $kumpulan = $transaction->transactionDetails()->get();
         $total = 0;
-        
+
         //menghitung total dari semua produk yang dibeli
-        foreach($datas as $data) {
-            $total += $data->quantity * $data->product()->withTrashed()->first()->price;
+        foreach($kumpulan as $satuan) {
+            $total += $satuan->quantity * $satuan->product()->withTrashed()->first()->price;
         }
 
-        return view('transaction.transaction-detail', compact('datas', 'total'));
+        return view('transaction.transaction-detail', compact('kumpulan', 'total'));
     }
 }

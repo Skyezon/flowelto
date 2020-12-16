@@ -5,13 +5,13 @@
     <div class="container">
         <div class="d-flex justify-content-center">
             <div class="d-flex w-50">
-                <img src="{{$data->image}}" width="400px"/>
+                <img src="{{$satuan->image}}" width="400px"/>
             </div>
             <div class="d-flex flex-column w-50">
-                <h1 class="font-weight-bold">{{$data->name}}</h1>
-                <div style="color: goldenrod" class="my-2 font-weight-bold fa-2x">Rp {{$data->price}}</div>
+                <h1 class="font-weight-bold">{{$satuan->name}}</h1>
+                <div style="color: goldenrod" class="my-2 font-weight-bold fa-2x">Rp {{$satuan->price}}</div>
                 <div>
-                    {{$data->description}}
+                    {{$satuan->description}}
                 </div>
                 @if(!Auth::user() || Auth::user()->role != "manager")
                     @if ($inCart)
@@ -19,7 +19,7 @@
                         <div>This product has been added to the cart</div>
                     </div>
                     @else
-                        <form action="{{route('addToCart', $data->id)}}" enctype="multipart/form-data" method="post" class="w-50 mt-5">
+                        <form action="{{route('addToCart', $satuan->id)}}" enctype="multipart/form-data" method="post" class="w-50 mt-5">
                             @csrf
 
                             @if($errors->any())

@@ -6,9 +6,9 @@
     <div class="container">
         <div class="d-flex justify-content-around">
             <div class="">
-                <img src="{{$data->image}}" id="displayed" width="400px"/>
+                <img src="{{$satuan->image}}" id="displayed" width="400px"/>
             </div>
-            <form action="{{route('productUpdate',$data->id)}}" enctype="multipart/form-data" class="w-50" method="post" >
+            <form action="{{route('productUpdate',$satuan->id)}}" enctype="multipart/form-data" class="w-50" method="post" >
                 @csrf
                 @method('patch')
                 @if($errors->any())
@@ -30,15 +30,15 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Flower Name : </label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{$data->name}}"/>
+                    <input type="text" class="form-control" name="name" id="name" value="{{$satuan->name}}"/>
                 </div>
                 <div class="form-group">
                     <label for="price">Flower Price : </label>
-                    <input type="number" class="form-control" name="price" id="price" value="{{$data->price}}"/>
+                    <input type="number" class="form-control" name="price" id="price" value="{{$satuan->price}}"/>
                 </div>
                 <div class="form-group">
                     <label for="description">Flower Description : </label>
-                    <textarea class="form-control" name="description" >{{$data->description}}</textarea>
+                    <textarea class="form-control" name="description" >{{$satuan->description}}</textarea>
                 </div>
                 <div class="form-group">
                     <div>

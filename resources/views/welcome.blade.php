@@ -9,16 +9,16 @@
         <p><b>The Best Flower Shop in Binus university</b></p>
         <div class="d-flex justify-content-center align-items-center">
             <div class="d-flex flex-wrap align-items-center w-50">
-                @foreach($datas as $data)
+                @foreach($kumpulan as $satuan)
                     <div class="bg-color-card m-3" >
                         <div class="pt-3 px-2">
-                            <a href="{{route('home',$data->id)}}" >
-                                <img src="{{$data->image}}" alt="{{$data->id}}" style="width: 200px"/>
+                            <a href="{{route('home',$satuan->id)}}" >
+                                <img src="{{$satuan->image}}" alt="{{$satuan->id}}" style="width: 200px"/>
                             </a>
                         </div>
                         <div class="my-3 font-weight-bold">
-                            <a class="text-dark" href="{{route('home',$data->id)}}">
-                                {{$data->name}}
+                            <a class="text-dark" href="{{route('home',$satuan->id)}}">
+                                {{$satuan->name}}
                             </a>
                         </div>
                     </div>

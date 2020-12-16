@@ -4,17 +4,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <img class="w-100" src="{{$datas->image}}" alt="{{$datas->id}}">
+                <img class="w-100" src="{{$kumpulan->image}}" alt="{{$kumpulan->id}}">
             </div>
             <div class="col-md-9">
-                <form action="{{route('categoryUpdate', $datas->id)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('categoryUpdate', $kumpulan->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
                     <div class="form-group">
                         <label for="category_name">Category Name</label>
                         <input type="text" class="form-control" name="categoryName" id="category_name"
-                            value="{{old('categoryName') != null ? old('categoryName') : $datas->name}}">
+                            value="{{old('categoryName') != null ? old('categoryName') : $kumpulan->name}}">
                         @error('categoryName')
                             <strong class="text-danger">{{$message}}</strong>
                         @enderror

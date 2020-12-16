@@ -2,17 +2,17 @@
 
 @section('content')
     <div class="container">
-        @if (count($datas) != 0)
+        @if (count($kumpulan) != 0)
             <h1 class="text-center">Yout Cart</h1>
-            @foreach ($datas as $data)
+            @foreach ($kumpulan as $satuan)
                 <div class="d-flex justify-content-around align-items-center py-3" style="background-color: rgb(228, 191, 156);">
-                    <img class="w-25" src="{{$data->image}}">
-                    <span>{{$data->name}}</span>
-                    <span>Rp {{$data->price * $data->pivot->quantity}}</span>
-                    <form action="{{route('updateCartContent', $data->id)}}" method="POST">
+                    <img class="w-25" src="{{$satuan->image}}">
+                    <span>{{$satuan->name}}</span>
+                    <span>Rp {{$satuan->price * $satuan->pivot->quantity}}</span>
+                    <form action="{{route('updateCartContent', $satuan->id)}}" method="POST">
                         @method('PATCH')
                         @csrf
-                        @if($errors->any() && $data->id == session('productId'))
+                        @if($errors->any() && $satuan->id == session('productId'))
                             <div class="alert alert-danger">
                                 @foreach($errors->all() as $error)
                                     <div>{{$error}}</div>
@@ -21,8 +21,8 @@
                         @endif
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="number" name="quantity" id="quantity" class="form-control" 
-                            value="{{$data->pivot->quantity}}">
+                            <input type="number" name="quantity" id="quantity" class="form-control"
+                            value="{{$satuan->pivot->quantity}}">
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
