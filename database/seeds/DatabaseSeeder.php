@@ -1,5 +1,6 @@
 <?php
 
+use App\TransactionDetail;
 use Illuminate\Database\Seeder;
 use Seeds\SeederConfig;
 
@@ -12,24 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->addManager();
-
-        factory(App\User::class, SeederConfig::$satuanCount['user'])->create();
-        factory(App\Category::class, SeederConfig::$satuanCount['category'])->create();
-        factory(App\Product::class, SeederConfig::$satuanCount['product'])->create();
-        factory(App\Transaction::class, SeederConfig::$satuanCount['transaction'])->create();
-        factory(App\TransactionDetail::class, SeederConfig::$satuanCount['transaction_detail'])->create();
+        $this->call([
+            UserSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
+            TransactionSeeder::class,
+            TransactionDetailSeeder::class
+        ]);
 
         $this->attachUserWithProduct();
-    }
-
-    private function addManager($email = 'manager@mail.com', $password = 'password') {
-        factory(App\User::class)->create([
-            'username' => 'Manager'.rand(1, 10),
-            'email' => $email,
-            'password' => bcrypt($password),
-            'role' => 'manager'
-        ]);
     }
 
     /**
@@ -43,7 +35,7 @@ class DatabaseSeeder extends Seeder
         App\User::where('role', '<>', 'manager')->each(function($user) use($product){
             $numOfCartItem = rand(1,6);
             for ($i = 1; $i <= $numOfCartItem;) {
-                $productId = rand(1, SeederConfig::$satuanCount['product']);
+                $productId = rand(1, SeederConfig::$dataCount['product']);
 
                 //jika product yang sama belum ada di dalam cart user, maka product tersebut akan dimasukkan ke database
                 if($user->products()->where([
